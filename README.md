@@ -6,7 +6,7 @@ Provides an api that allows to make queries to the index and С++ node.
 URL: https://ton-explorer.com  
 API docs: https://ton-explorer.com/docs
 
-Supported OS: Linux, Mac OS.  
+Supported OS: Linux.  
 You must have installed jdk8 and sbt (scala-sbt.org).  
 Also required PostgreSQL 11  
 
