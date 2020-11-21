@@ -5,6 +5,7 @@ Indexes information contained in the blockchain: full history and update index i
 Provides an api that allows to make queries to the index and С++ node.  
 URL: https://ton-explorer.com  
 API docs: https://ton-explorer.com/docs
+Frontend: https://github.com/broxus/ton-explorer-frontend
 
 Supported OS: Linux.  
 You must have installed jdk8 and sbt (scala-sbt.org).  
