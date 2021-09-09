@@ -8,6 +8,7 @@ package object config {
   type TonConfigProvider     = Has[TonConfig]
   type DBConfigProvider      = Has[DBConfig]
   type IndexerConfigProvider = Has[IndexerConfig]
+  type StatsConfigProvider   = Has[StatsConfig]
   type BotConfigProvider     = Has[BotConfig]
 
 }

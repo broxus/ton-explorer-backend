@@ -36,6 +36,7 @@ object Layers {
     with TonConfigProvider
     with DBConfigProvider
     with IndexerConfigProvider
+    with StatsConfigProvider
   type Layer2Env = Layer1Env with TonService with DBTransactor
   type Layer3Env = Layer2Env
     with DBBlockRepository
@@ -56,7 +57,7 @@ object Layers {
       Blocking.any ++ Clock.any ++ ConfigProvider.live ++ Slf4jLogger.make((_, msg) => msg)
 
     val layer1: ZLayer[Layer0Env, Throwable, Layer1Env] =
-      DBConfigProvider.fromConfig ++ BotConfigProvider.fromConfig ++ TonConfigProvider.fromConfig ++ IndexerConfigProvider.fromConfig ++ ZLayer.identity
+      DBConfigProvider.fromConfig ++ BotConfigProvider.fromConfig ++ TonConfigProvider.fromConfig ++ IndexerConfigProvider.fromConfig ++ StatsConfigProvider.fromConfig ++ ZLayer.identity
 
     val layer2: ZLayer[Layer1Env, Throwable, Layer2Env] =
       TonService.layer ++ DBTransactor.layer ++ ZLayer.identity

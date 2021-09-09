@@ -38,7 +38,7 @@ class StatsProcessor(
       t1    <- Task(System.currentTimeMillis())
       _     <- logger.info(s"StatsProcessor: cycle ends in ${t1 - t0} ms")
       _     <- Task(value.set(stats))
-      _     <- Task(Thread.sleep(5000))
+      _     <- Task(Thread.sleep(3600000))
       _     <- updateCycle()
     } yield ()
 

@@ -4,10 +4,11 @@ import pureconfig.generic.semiauto.deriveConvert
 import pureconfig.{ ConfigConvert, ConfigSource }
 import zio.{ Has, ZIO, ZLayer }
 
-final case class Config(dbConfig: DBConfig, ton: TonConfig, indexer: IndexerConfig, bot: BotConfig)
+final case class Config(dbConfig: DBConfig, ton: TonConfig, indexer: IndexerConfig, stats: StatsConfig, bot: BotConfig)
 final case class TonConfig(liteClient: String, useNetworkCallback: Boolean, blockchainName: String, verbosityLevel: Int)
 final case class DBConfig(url: String, driver: String, user: String, password: String)
 final case class IndexerConfig(enabled: Boolean, zeroState: Seq[IndexerZeroState], stepSize: Int, threadsPerShard: Int)
+final case class StatsConfig(enabled: Boolean)
 final case class IndexerZeroState(workchain: Int, shard: Long, seqno: Int)
 final case class BotConfig(
     enabled: Boolean,
@@ -21,6 +22,7 @@ object Config           { implicit val convert: ConfigConvert[Config] = deriveCo
 object TonConfig        { implicit val convert: ConfigConvert[TonConfig] = deriveConvert        }
 object DBConfig         { implicit val convert: ConfigConvert[DBConfig] = deriveConvert         }
 object IndexerConfig    { implicit val convert: ConfigConvert[IndexerConfig] = deriveConvert    }
+object StatsConfig      { implicit val convert: ConfigConvert[StatsConfig] = deriveConvert }
 object IndexerZeroState { implicit val convert: ConfigConvert[IndexerZeroState] = deriveConvert }
 object BotConfig        { implicit val convert: ConfigConvert[BotConfig] = deriveConvert        }
 
@@ -50,6 +52,11 @@ object DBConfigProvider {
 object IndexerConfigProvider {
   val fromConfig: ZLayer[ConfigProvider, Throwable, IndexerConfigProvider] =
     ZLayer.fromService(_.indexer)
+}
+
+object StatsConfigProvider {
+  val fromConfig: ZLayer[ConfigProvider, Throwable, StatsConfigProvider] =
+    ZLayer.fromService(_.stats)
 }
 
 object BotConfigProvider {
